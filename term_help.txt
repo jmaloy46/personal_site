@@ -1,0 +1,10 @@
+Available commands:
+
+ls - List files
+cat <file> - Display file contents
+clear - Clear terminal
+help - Show this help message
+pwd - Print working directory
+echo <text> - Print text
+date - Show current date
+connect - Show contact information
