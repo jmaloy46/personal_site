@@ -1045,12 +1045,10 @@
           }
 
           currentWord += event.key.toLowerCase();
-          console.log("Current word:", currentWord); // Debug
 
           // Check if we have a valid word
           const validWords = ["lacey", "friends", "family"];
           if (validWords.includes(currentWord)) {
-            console.log("Triggering easter egg for:", currentWord); // Debug
             createFloatingImages(currentWord);
             currentWord = "";
           }
@@ -1063,7 +1061,6 @@
           // Set timeout to clear word after 2 seconds of no typing
           wordTimeout = setTimeout(() => {
             currentWord = "";
-            console.log("Word cleared due to timeout");
           }, 2000);
         } else if (event.key === "Backspace") {
           // Allow backspace to edit the current word
@@ -1075,7 +1072,6 @@
           }
           wordTimeout = setTimeout(() => {
             currentWord = "";
-            console.log("Word cleared due to timeout");
           }, 2000);
         } else if (event.key === "Enter" || event.key === " ") {
           // Reset on enter or space
