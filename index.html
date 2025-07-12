@@ -249,6 +249,19 @@
         .terminal-button {
           display: block;
         }
+        .dev-hint {
+          display: block;
+        }
+      }
+
+      /* Hide terminal and hint on mobile */
+      @media (max-width: 767px) {
+        .terminal-button {
+          display: none;
+        }
+        .dev-hint {
+          display: none;
+        }
       }
 
       .terminal-container {
@@ -393,43 +406,80 @@
     <div class="container">
       <h1>Jack Maloy</h1>
       <div class="company">
-        Currently optimizing inference at
-        <a href="https://aws.amazon.com/bedrock/" target="_blank"
+        Working on inference infrastructure at
+        <a
+          href="https://aws.amazon.com/bedrock/"
+          target="_blank"
+          rel="noopener noreferrer"
           >Amazon Bedrock</a
         >
+        and building
+        <a
+          href="https://www.partner-up.net/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Partner-Up</a
+        >.
       </div>
 
       <div class="content">
         <h2>About Me</h2>
         <p>
-          During the work on scalable inference at
-          <a href="https://www.anthropic.com" target="_blank">Anthropic</a>.
-          Previously, I was at
-          <a href="https://www.appliedintuition.com" target="_blank"
-            >Applied Intuition</a
-          >
-          focused on building and scaling our data infrastructure, working with
-          Apache Spark and
+          I am currently leading Bedrock's inference efficiency team,
+          specifically related to the Anthropic models. Here are
+
           <a
-            href="https://hudi.apache.org/powered-by#applied-intuition"
+            href="https://www.aboutamazon.com/news/aws/anthropic-claude-4-opus-sonnet-amazon-bedrock"
             target="_blank"
-            >Apache Hudi</a
-          >. Before that, I worked on search infrastructure at
-          <a href="https://www.uber.com" target="_blank">Uber</a>.
+            rel="noopener noreferrer"
+            >some</a
+          >
+          <a
+            href="https://aws.amazon.com/about-aws/whats-new/2024/12/latency-optimized-inference-foundation-models-amazon-bedrock/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >fun</a
+          >
+          <a
+            href="https://docs.aws.amazon.com/bedrock/latest/userguide/prov-throughput.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            >things</a
+          >
+          which I led, or had a large part in.
+        </p>
+        <p>
+          I am also the Co-Founder and CTO of
+          <a
+            href="https://www.partner-up.net/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Partner-Up</a
+          >, a startup that is launching very soon! The goal is to helps brands
+          of all sizes reach their full potential through influencer marketing.
+        </p>
+        <p>
+          Previously, I worked on the
+          <a
+            href="https://aws.amazon.com/chime/chime-sdk/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >AWS Chime SDK</a
+          >
+          team helping build out APIs to power audio & video communication.
+          Prior to that I was at
+
+          <a
+            href="https://www.jpmorgan.com/global"
+            target="_blank"
+            rel="noopener noreferrer"
+            >JP Morgan</a
+          >
+
+          working on internal data pipelines and web applications.
         </p>
 
-        <p>
-          I graduated from Georgia Tech in 2021, where I had the privilege of
-          researching under
-          <a href="https://faculty.cc.gatech.edu/~judy/" target="_blank"
-            >Dr. Judy Hoffman</a
-          >, focusing on computer vision and transfer learning across CV tasks.
-        </p>
-
-        <p>
-          I'm excited to connect with people who share similar interests. Feel
-          free to reach out!
-        </p>
+        <p>I'm always open to chatting, feel free to reach out!</p>
       </div>
 
       <h2>Links</h2>
@@ -438,17 +488,35 @@
           <a href="#" data-clipboard="jack.maloy46@gmail.com">📧 Email</a>
         </div>
         <div>
-          <a href="https://www.linkedin.com/in/jack-maloy/" target="_blank"
+          <a
+            href="https://www.linkedin.com/in/jack-maloy/"
+            target="_blank"
+            rel="noopener noreferrer"
             >👥 LinkedIn</a
           >
         </div>
-        <div><a href="resume.pdf" target="_blank">📄 Resume</a></div>
+        <div>
+          <a href="resume.pdf" target="_blank" rel="noopener noreferrer"
+            >📄 Resume</a
+          >
+        </div>
       </div>
 
       <div class="footer">
         <div class="last-updated">Last Updated: July 2025</div>
         <div class="footer-controls">
-          <span class="terminal-button">⌨️</span>
+          <div style="display: flex; align-items: center; gap: 10px">
+            <span
+              class="dev-hint"
+              style="
+                font-size: 0.8em;
+                color: var(--subtle-color);
+                font-style: italic;
+              "
+              >Dev's should click here →</span
+            >
+            <span class="terminal-button">📟</span>
+          </div>
           <div class="theme-toggle">☀️</div>
         </div>
       </div>
@@ -551,12 +619,12 @@
         async init() {
           // Load terminal files dynamically
           const fileMappings = {
-            "help.txt": "term_help.txt",
-            "about.txt": "term_about.txt",
-            "easteregg.txt": "term_easteregg.txt",
-            "interests.txt": "term_interests.txt",
-            "skills.txt": "term_skills.txt",
-            "connect.txt": "term_connect.txt",
+            "help.txt": "term/term_help.txt",
+            "about.txt": "term/term_about.txt",
+            ".easteregg": "term/term_easteregg.txt",
+            "interests.txt": "term/term_interests.txt",
+            "skills.txt": "term/term_skills.txt",
+            "connect.txt": "term/term_connect.txt",
           };
 
           // Load each file
@@ -571,7 +639,7 @@
                 this.fs[virtualName] = "File not found.";
               }
             } catch (error) {
-              console.warn(`Failed to load ${actualName}:`, error);
+              this.fs[virtualName] = "File not found.";
             }
           }
 
@@ -625,7 +693,7 @@
 
           if (isCommand) {
             // For commands, include the prompt
-            line.innerHTML = `<span class="terminal-prompt">jmaloy@portfolio:${this.currentDirectory}$</span> ${text}`;
+            line.innerHTML = `<span class="terminal-prompt">jmaloy@portfolio:${this.currentDirectory}$</span>${text}`;
           } else {
             // For output, just show the text
             line.textContent = text;
@@ -725,7 +793,40 @@
               break;
 
             case "ls":
-              this.addLine(Object.keys(this.fs).join("  "));
+              if (args.includes("-a")) {
+                // Show hidden files with rainbow colors
+                const files = Object.keys(this.fs);
+                const visibleFiles = files.filter(
+                  (file) => !file.startsWith(".")
+                );
+                const hiddenFiles = files.filter((file) =>
+                  file.startsWith(".")
+                );
+
+                // Show visible files normally
+                if (visibleFiles.length > 0) {
+                  this.addLine(visibleFiles.join("  "));
+                }
+
+                if (hiddenFiles.length > 0) {
+                  hiddenFiles.forEach((file) => {
+                    const color = "#20B2AA";
+                    const line = document.createElement("div");
+                    line.className = "terminal-line";
+                    line.innerHTML = `<span style="color: ${color};">${file}</span>`;
+                    this.content.insertBefore(
+                      line,
+                      this.content.lastElementChild
+                    );
+                  });
+                }
+              } else {
+                // Show only visible files
+                const visibleFiles = Object.keys(this.fs).filter(
+                  (file) => !file.startsWith(".")
+                );
+                this.addLine(visibleFiles.join("  "));
+              }
               break;
 
             case "cat":
@@ -754,6 +855,13 @@
               this.addLine(this.fs["connect.txt"] || "Connect file not found.");
               break;
 
+            case "reload":
+              this.addLine("Reloading terminal files...");
+              this.init().then(() => {
+                this.addLine("Files reloaded successfully!");
+              });
+              break;
+
             default:
               this.addLine(`Command not found: ${cmd}`);
           }
@@ -769,66 +877,155 @@
       // Initialize terminal
       terminal.init();
 
-      // Konami code implementation
-      const konamiCode = [
-        "ArrowUp",
-        "ArrowUp",
-        "ArrowDown",
-        "ArrowDown",
-        "ArrowLeft",
-        "ArrowRight",
-        "ArrowLeft",
-        "ArrowRight",
-        "b",
-        "a",
-      ];
-      let konamiIndex = 0;
-      let matrixInterval;
-      let matrixActive = false;
+      // Easter egg implementation
+      let currentWord = "";
+      let imageGalleryActive = false;
+      let wordTimeout = null;
 
-      function createMatrixRain() {
-        const characters =
-          "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃ";
-        const column = document.createElement("div");
+      // Floating images styles
+      const floatingStyles = `
+        @keyframes floatDown {
+          0% {
+            transform: translateY(-200px) rotate(0deg);
+            opacity: 0.95;
+          }
+          100% {
+            transform: translateY(100vh) rotate(var(--rotation, 0deg));
+            opacity: 0;
+          }
+        }
+        
+        .floating-image {
+          position: fixed;
+          width: 144px;
+          height: 144px;
+          border-radius: 10px;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+          z-index: 2000;
+          pointer-events: none;
+          animation: floatDown linear forwards;
+        }
+        
+        .floating-image img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 10px;
+        }
+        
+        .floating-image.placeholder {
+          background: linear-gradient(45deg, #20B2AA, #48D1CC);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          font-size: 2em;
+          font-weight: bold;
+        }
+        
+        .easter-egg-message {
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: rgba(0, 0, 0, 0.8);
+          color: white;
+          padding: 20px 30px;
+          border-radius: 10px;
+          font-family: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+          font-size: 1.2em;
+          z-index: 2001;
+          text-align: center;
+          animation: fadeInOut 3s ease-in-out forwards;
+        }
+        
+        @keyframes fadeInOut {
+          0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+          20% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+          80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+          100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+        }
+      `;
 
-        // Random starting position
-        const startX = Math.random() * window.innerWidth;
+      // Add styles to head
+      const styleSheet = document.createElement("style");
+      styleSheet.textContent = floatingStyles;
+      document.head.appendChild(styleSheet);
 
-        // Create characters in the column
-        for (let i = 0; i < 20; i++) {
-          const char = document.createElement("div");
-          char.className = "matrix-character";
-          char.style.left = `${startX}px`;
-          char.style.top = `-${i * 20}px`;
-          char.style.animationDuration = `${2 + Math.random() * 3}s`;
-          char.textContent =
-            characters[Math.floor(Math.random() * characters.length)];
-          document.body.appendChild(char);
+      function createFloatingImages(category) {
+        // Create floating images
+        const imageCount = 12; // Number of images to create
+        const duration = 4000; // Animation duration in ms
 
-          // Remove after animation
+        for (let i = 0; i < imageCount; i++) {
           setTimeout(() => {
-            char.remove();
-          }, 5000);
+            createFloatingImage(category, i);
+          }, i * 300); // Stagger the creation
         }
       }
 
-      function startMatrixEffect() {
-        if (matrixActive) return;
-        matrixActive = true;
+      function createFloatingImage(category, index) {
+        const image = document.createElement("div");
+        image.className = "floating-image";
 
-        // Start the matrix effect
-        matrixInterval = setInterval(createMatrixRain, 100);
+        // Random starting position - start from above the viewport, centered
+        const centerX = window.innerWidth / 2;
+        const halfWidth = 72; // Half of image width (144px / 2)
+        const startX =
+          centerX -
+          halfWidth +
+          (Math.random() - 0.5) * (window.innerWidth * 0.5); // 50% of screen width, centered
+        const startY = -100 - Math.random() * 100; // Start 100-200px above viewport
+        image.style.left = `${startX}px`;
+        image.style.top = `${startY}px`;
 
-        // Display easter egg message in terminal if it's open
-        if (terminal.isVisible()) {
-          terminal.addLine("🎮 Konami code activated! The matrix has you...");
+        // Fixed animation duration for consistent speed
+        const duration = 4000; // 4 seconds for all images
+        image.style.animationDuration = `${duration}ms`;
+
+        // Random rotation direction (each image rotates in one direction only)
+        const rotationDirection = Math.random() > 0.5 ? 1 : -1;
+        const rotationAmount = 45 + Math.random() * 45; // 45-90 degrees rotation
+        image.style.setProperty(
+          "--rotation",
+          `${rotationDirection * rotationAmount}deg`
+        );
+
+        // Try to load actual image, fallback to placeholder
+        const imgElement = document.createElement("img");
+
+        // Use different naming conventions based on category
+        let imageName;
+        if (category === "lacey") {
+          imageName = `lacey_${(index % 12) + 1}.jpg`;
+        } else if (category === "friends") {
+          imageName = `friends_${(index % 15) + 1}.jpg`;
+        } else if (category === "family") {
+          imageName = `fam_${(index % 16) + 1}.jpg`;
+        } else {
+          imageName = `${category}_${(index % 6) + 1}.jpg`;
         }
 
-        // Stop after 5 seconds
+        imgElement.src = `${category}/${imageName}`;
+        imgElement.alt = `${category} image`;
+
+        imgElement.onerror = () => {
+          // Create placeholder with emoji
+          image.className = "floating-image placeholder";
+          const emojis = ["🐶", "👪", "🥳", "📷", "💖", "🌟"];
+          const emoji = emojis[index % emojis.length];
+          image.textContent = emoji;
+        };
+
+        image.appendChild(imgElement);
+        document.body.appendChild(image);
+
+        // Remove image after animation
         setTimeout(() => {
-          clearInterval(matrixInterval);
-          matrixActive = false;
-        }, 5000);
+          if (image.parentNode) {
+            image.remove();
+          }
+        }, duration);
       }
 
       document.addEventListener("keydown", (event) => {
@@ -840,15 +1037,52 @@
           return;
         }
 
-        if (event.key === konamiCode[konamiIndex]) {
-          konamiIndex++;
-
-          if (konamiIndex === konamiCode.length) {
-            startMatrixEffect();
-            konamiIndex = 0;
+        // Handle letter keys for easter egg
+        if (event.key.length === 1 && /[a-zA-Z]/.test(event.key)) {
+          // Clear any existing timeout
+          if (wordTimeout) {
+            clearTimeout(wordTimeout);
           }
-        } else {
-          konamiIndex = 0;
+
+          currentWord += event.key.toLowerCase();
+          console.log("Current word:", currentWord); // Debug
+
+          // Check if we have a valid word
+          const validWords = ["lacey", "friends", "family"];
+          if (validWords.includes(currentWord)) {
+            console.log("Triggering easter egg for:", currentWord); // Debug
+            createFloatingImages(currentWord);
+            currentWord = "";
+          }
+
+          // Reset if word gets too long
+          if (currentWord.length > 10) {
+            currentWord = "";
+          }
+
+          // Set timeout to clear word after 2 seconds of no typing
+          wordTimeout = setTimeout(() => {
+            currentWord = "";
+            console.log("Word cleared due to timeout");
+          }, 2000);
+        } else if (event.key === "Backspace") {
+          // Allow backspace to edit the current word
+          currentWord = currentWord.slice(0, -1);
+
+          // Reset timeout when backspace is used
+          if (wordTimeout) {
+            clearTimeout(wordTimeout);
+          }
+          wordTimeout = setTimeout(() => {
+            currentWord = "";
+            console.log("Word cleared due to timeout");
+          }, 2000);
+        } else if (event.key === "Enter" || event.key === " ") {
+          // Reset on enter or space
+          currentWord = "";
+          if (wordTimeout) {
+            clearTimeout(wordTimeout);
+          }
         }
       });
     </script>
