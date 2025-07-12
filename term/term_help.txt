@@ -6,4 +6,3 @@ clear       - Clear terminal screen
 help        - Show this help message
 pwd         - Print working directory
 echo <text> - Print text
-reload      - Reload terminal files (useful after editing)
