@@ -855,13 +855,6 @@
               this.addLine(this.fs["connect.txt"] || "Connect file not found.");
               break;
 
-            case "reload":
-              this.addLine("Reloading terminal files...");
-              this.init().then(() => {
-                this.addLine("Files reloaded successfully!");
-              });
-              break;
-
             default:
               this.addLine(`Command not found: ${cmd}`);
           }
