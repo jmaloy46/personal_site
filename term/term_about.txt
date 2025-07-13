@@ -1,6 +1,6 @@
 Currently I work as the technical lead for AWS Bedrock's inference efficiency team, specifically related to the Anthropic hosting platform.
 
-I am also the CTO of Partner-Up which is launching very soon! Prior to my work at Bedrock I was on the AWS Chime SDK team helping build out APIs to 
+I am also the CTO of Partner-Up that is launching very soon! Prior to my work at Bedrock, I was on the AWS Chime SDK team helping build out APIs to 
 power audio & video communication. 
 
 I graduated from the University of Delaware in 2020 with a major in CS and minor in Cyber Security with a concentration in AI.
