@@ -688,6 +688,19 @@
             }
           }
 
+          // Fallback content for easteregg if file loading fails
+          if (
+            !this.fs[".easteregg"] ||
+            this.fs[".easteregg"] === "File not found."
+          ) {
+            this.fs[".easteregg"] =
+              "Woah - you found me!\n\nOutside of the terminal try typing: 'rain'";
+          }
+
+          // Debug: Check what files were loaded
+          console.log("Loaded files:", Object.keys(this.fs));
+          console.log("Easteregg content:", this.fs[".easteregg"]);
+
           this.button.addEventListener("click", () => this.show());
           this.closeBtn.addEventListener("click", () => this.hide());
           this.overlay.addEventListener("click", () => this.hide());
@@ -925,7 +938,11 @@
         @keyframes floatDown {
           0% {
             transform: translateY(-200px) rotate(0deg);
-            opacity: 0.95;
+            opacity: 0.9;
+          }
+          70% {
+            transform: translateY(70vh) rotate(var(--rotation, 0deg));
+            opacity: 0.9;
           }
           100% {
             transform: translateY(100vh) rotate(var(--rotation, 0deg));
@@ -992,13 +1009,13 @@
 
       function createFloatingImages(category) {
         // Create floating images
-        const imageCount = 12; // Number of images to create
+        const imageCount = 43; // All images
         const duration = 4000; // Animation duration in ms
 
         for (let i = 0; i < imageCount; i++) {
           setTimeout(() => {
             createFloatingImage(category, i);
-          }, i * 300); // Stagger the creation
+          }, i * 200); // Slower stagger for more gradual rain effect
         }
       }
 
@@ -1032,19 +1049,17 @@
         // Try to load actual image, fallback to placeholder
         const imgElement = document.createElement("img");
 
-        // Use different naming conventions based on category
+        // Use simple numbered filenames
         let imageName;
-        if (category === "lacey") {
-          imageName = `lacey_${(index % 12) + 1}.jpg`;
-        } else if (category === "friends") {
-          imageName = `friends_${(index % 15) + 1}.jpg`;
-        } else if (category === "family") {
-          imageName = `fam_${(index % 16) + 1}.jpg`;
+        if (category === "rain") {
+          // Use all images sequentially (1-43)
+          const imageNumber = index + 1;
+          imageName = `${imageNumber}.jpg`;
         } else {
-          imageName = `${category}_${(index % 6) + 1}.jpg`;
+          imageName = `${(index % 6) + 1}.jpg`;
         }
 
-        imgElement.src = `${category}/${imageName}`;
+        imgElement.src = `pics/${imageName}`;
         imgElement.alt = `${category} image`;
 
         imgElement.onerror = () => {
@@ -1085,7 +1100,7 @@
           currentWord += event.key.toLowerCase();
 
           // Check if we have a valid word
-          const validWords = ["lacey", "friends", "family"];
+          const validWords = ["rain"];
           if (validWords.includes(currentWord)) {
             createFloatingImages(currentWord);
             currentWord = "";

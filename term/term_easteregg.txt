@@ -1,7 +1,3 @@
 Woah - you found me! 
 
-Outside of the terminal try typing some of the below
-
-🐶 - 'lacey'
-👪 - 'family'
-🥳 - 'friends'
+Outside of the terminal try typing: 'rain'
