@@ -1,3 +1,0 @@
-Technical Skills:
-- Languages: Python, Java, TS/JS
-- Infrastructure: Kubernetes, AWS, CDK (IaC)

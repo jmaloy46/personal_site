@@ -1,8 +1,0 @@
-Available commands:
-
-ls [-a]     - List files (use -a to show hidden files)
-cat <file>  - Display file contents
-clear       - Clear terminal screen
-help        - Show this help message
-pwd         - Print working directory
-echo <text> - Print text
